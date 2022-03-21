@@ -12,6 +12,8 @@ app.use(cors());
 
 app.post('/post', express.urlencoded({ extended: true }), express.json(), (req, res) => {
   const user = req.body;
+  
+  res.setHeader('Access-Control-Expose-Headers', '*');
 
   axios
     .post(`https://${DB_NAME}.restdb.io/rest/quick`, user, {

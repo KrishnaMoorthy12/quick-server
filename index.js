@@ -12,10 +12,9 @@ app.use(cors());
 
 app.post('/post', express.urlencoded({ extended: true }), express.json(), (req, res) => {
   const user = req.body;
-  const sender = req.headers['AMP-Email-Sender'];
   
-  console.log(sender);
-  res.setHeader('AMP-Email-Allow-Sender', sender);
+  console.log(req.headers);
+  res.setHeader('AMP-Email-Allow-Sender', '*');
 
   axios
     .post(`https://${DB_NAME}.restdb.io/rest/quick`, user, {

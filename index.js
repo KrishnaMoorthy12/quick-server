@@ -1,11 +1,14 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 require('dotenv').config();
 
 const app = express();
 
 const { PORT, API_KEY, DB_NAME } = process.env;
+
+app.use(cors());
 
 app.post('/post', express.urlencoded({ extended: true }), express.json(), (req, res) => {
   const user = req.body;

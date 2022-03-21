@@ -13,8 +13,14 @@ app.use(cors());
 app.post('/post', express.urlencoded({ extended: true }), express.json(), (req, res) => {
   const user = req.body;
   
-  console.log(req.headers);
-  res.setHeader('AMP-Email-Allow-Sender', '*');
+  const sender = req.headers['amp-email-sender'];
+  console.log('Sender: ' + sender);
+  
+  if(!sender) {
+    return res.status(403).send('This endpoint is not meant for you.');
+  }
+  
+  res.setHeader('AMP-Email-Allow-Sender', sender);
 
   axios
     .post(`https://${DB_NAME}.restdb.io/rest/quick`, user, {

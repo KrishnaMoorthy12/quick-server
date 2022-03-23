@@ -70,10 +70,10 @@ app.post('/add-to-cart', express.urlencoded({ extended: true }), express.json(),
   console.log(appState);
   res.setHeader('AMP-Email-Allow-Sender', '*');
 
-  res.send('Successfully added to cart');
+  res.send({ message: 'Successfully added to cart' });
 });
 
-app.get('/checkout', (req, res) => {
+app.get('/checkout', (_req, res) => {
   res.send(`<html>
     <body>
     <ol>

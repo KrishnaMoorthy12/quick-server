@@ -60,9 +60,9 @@ app.get('/track', (req, res) => {
 });
 
 app.post('/add-to-cart', express.urlencoded({ extended: true }), express.json(), (req, res) => {
-  const { items } = req.query;
+  const { items } = req.body;
 
-  console.log(items);
+  console.log({ items });
 
   const cart = items.split(',');
   appState.userCart = cart;

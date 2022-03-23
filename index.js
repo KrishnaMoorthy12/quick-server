@@ -64,9 +64,7 @@ app.post('/add-to-cart', (req, res) => {
   const cart = items.split(',');
   appState.userCart = cart;
 
-  const sender = req.headers['amp-email-sender'];
-  if (!sender) return res.status(403).send('This endpoint is not meant for you.');
-  res.setHeader('AMP-Email-Allow-Sender', sender);
+  res.setHeader('AMP-Email-Allow-Sender', '*');
 
   res.send('Successfully added to cart');
 });
@@ -82,10 +80,7 @@ app.get('/checkout', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
-  const sender = req.headers['amp-email-sender'];
-  if (!sender) return res.status(403).send('This endpoint is not meant for you.');
-
-  res.setHeader('AMP-Email-Allow-Sender', sender);
+  res.setHeader('AMP-Email-Allow-Sender', '*');
 
   const products = [
     {

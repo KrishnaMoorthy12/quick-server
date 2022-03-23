@@ -59,11 +59,15 @@ app.get('/track', (req, res) => {
   return res.send({ items: [trackingDetails] });
 });
 
-app.post('/add-to-cart', (req, res) => {
+app.post('/add-to-cart', express.urlencoded({ extended: true }), express.json(), (req, res) => {
   const { items } = req.query;
+
+  console.log(items);
+
   const cart = items.split(',');
   appState.userCart = cart;
 
+  console.log(appState);
   res.setHeader('AMP-Email-Allow-Sender', '*');
 
   res.send('Successfully added to cart');

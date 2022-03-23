@@ -93,18 +93,21 @@ app.get('/products', (req, res) => {
       name: 'Product 1',
       price: '$20',
       image: 'https://unsplash.com/photos/m1MRYp556Ew',
+      link: 'example.com',
     },
     {
       id: 'product2',
       name: 'Product 2',
       price: '$24',
       image: 'https://unsplash.com/photos/Wr0TpKqf26s',
+      link: 'example.com',
     },
     {
       id: 'product3',
       name: 'Product 3',
       price: '$28',
       image: 'https://unsplash.com/photos/PTorAkUcYHg',
+      link: 'example.com',
     },
   ];
 

@@ -56,7 +56,7 @@ app.get('/track', (req, res) => {
 
   res.setHeader('AMP-Email-Allow-Sender', sender);
 
-  return res.send({ items: [trackingDetails] });
+  return res.send(trackingDetails);
 });
 
 app.post('/add-to-cart', express.urlencoded({ extended: true }), express.json(), (req, res) => {

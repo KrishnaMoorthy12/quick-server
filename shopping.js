@@ -57,4 +57,4 @@ router.get('/products', (req, res) => {
   res.send({ items: products });
 });
 
-export default router;
+module.exports = router;

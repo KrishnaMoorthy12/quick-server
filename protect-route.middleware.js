@@ -1,4 +1,4 @@
-export default function protectRoute(req, res, next) {
+module.exports = function protectRoute(req, res, next) {
   const sender = req.headers['amp-email-sender'];
   console.log('Sender: ' + sender);
 
@@ -11,4 +11,4 @@ export default function protectRoute(req, res, next) {
   res.setHeader('AMP-Email-Allow-Sender', sender);
 
   next();
-}
+};

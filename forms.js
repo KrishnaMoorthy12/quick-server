@@ -1,6 +1,6 @@
 const axios = require('axios');
 const express = require('express');
-import protectRoute from './protect-route.middleware';
+const protectRoute = require('./protect-route.middleware');
 
 const router = express.Router();
 

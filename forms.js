@@ -37,7 +37,7 @@ router.post(
   protectRoute,
   (req, res) => {
     const { fullName, age, dateOfJoining } = req.body;
-    const survey = { fullName, age, dateOfJoining };
+    const survey = { fullName, age: +age, dateOfJoining: new Date(dateOfJoining) };
     axios
       .post(`https://${DB_NAME}.restdb.io/rest/survey`, survey, {
         headers: { 'x-apikey': API_KEY },

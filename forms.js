@@ -20,7 +20,12 @@ router.post(
   protectRoute,
   (req, res) => {
     const user = req.body;
-    api.post('/quick', user).then(() => res.send(user));
+    axios
+      .post(`https://${DB_NAME}.restdb.io/rest/quick`, user, {
+        headers: { 'x-apikey': API_KEY },
+      })
+      .then(() => res.send(user))
+      .catch(e => console.log('WTF'));
     console.log(user);
   }
 );
@@ -33,7 +38,11 @@ router.post(
   (req, res) => {
     const { fullName, age, dateOfJoining } = req.body;
     const survey = { fullName, age, dateOfJoining };
-    api.post('/survey', survey).then(() => res.send(survey));
+    axios
+      .post(`https://${DB_NAME}.restdb.io/rest/survey`, survey, {
+        headers: { 'x-apikey': API_KEY },
+      })
+      .then(() => res.send(survey));
     console.log(survey);
   }
 );

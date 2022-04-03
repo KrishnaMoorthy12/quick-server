@@ -4,11 +4,13 @@ require('dotenv').config();
 
 const formsHandler = require('./forms');
 const eShoppingHandler = require('./shopping');
+const logContentType = require('./log-content-type.middleware');
 const { PORT } = process.env;
 
 const app = express();
 
 app.use(cors());
+app.use(logContentType);
 
 app.use(formsHandler);
 app.use(eShoppingHandler);

@@ -34,16 +34,15 @@ router.get(
   '/is-survey-submitted',
   express.urlencoded({ extended: true }),
   express.json(),
-  protectRoute,
   async (req, res) => {
     const submittedUsers = await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
       headers: { 'x-apikey': API_KEY },
     });
 
     if (submittedUsers.indexOf(req.body.userId) < 0)
-      return res.status(200).json({ message: 'User has not submitted the survey' });
+      return res.json({ message: 'User has not submitted the survey', submitted: true });
 
-    return res.status(400).json({ message: 'User has already submitted the form' });
+    return res.json({ message: 'User has already submitted the form' });
   }
 );
 

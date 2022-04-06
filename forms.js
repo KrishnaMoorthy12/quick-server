@@ -35,22 +35,17 @@ router.get(
   express.urlencoded({ extended: true }),
   express.json(),
   async (req, res) => {
+    const { userId: requesterId } = req.query;
+    if (!requesterId) return res.status(401).send({ message: 'Unauthorized' });
+
     const submittedUsers = (
       await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
         headers: { 'x-apikey': API_KEY },
       })
     ).data;
 
-    if (
-      submittedUsers.find(user => {
-        if (user.userId == req.body.userId) {
-          console.log(user);
-          return true;
-        }
-      })
-    ) {
+    if (submittedUsers.find(user => user.userId === requesterId))
       return res.json({ message: 'User has submitted the survey', submitted: true });
-    }
 
     return res.json({ message: 'User has not submitted the form' });
   }

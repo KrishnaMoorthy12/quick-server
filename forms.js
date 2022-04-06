@@ -35,14 +35,16 @@ router.get(
   express.urlencoded({ extended: true }),
   express.json(),
   async (req, res) => {
-    const submittedUsers = await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
-      headers: { 'x-apikey': API_KEY },
-    });
+    const submittedUsers = (
+      await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
+        headers: { 'x-apikey': API_KEY },
+      })
+    ).data;
 
-    if (submittedUsers.indexOf(req.body.userId) < 0)
-      return res.json({ message: 'User has not submitted the survey', submitted: true });
+    if (submittedUsers.find(user => user.userId == req.body.userId))
+      return res.json({ message: 'User has submitted the survey', submitted: true });
 
-    return res.json({ message: 'User has already submitted the form' });
+    return res.json({ message: 'User has not submitted the form' });
   }
 );
 

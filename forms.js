@@ -41,8 +41,16 @@ router.get(
       })
     ).data;
 
-    if (submittedUsers.find(user => user.userId == req.body.userId))
+    if (
+      submittedUsers.find(user => {
+        if (user.userId == req.body.userId) {
+          console.log(user);
+          return true;
+        }
+      })
+    ) {
       return res.json({ message: 'User has submitted the survey', submitted: true });
+    }
 
     return res.json({ message: 'User has not submitted the form' });
   }

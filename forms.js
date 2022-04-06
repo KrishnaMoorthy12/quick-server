@@ -48,6 +48,7 @@ router.get('/is-survey-submitted/:userId', async (req, res) => {
 
 router.post('/survey', express.json(), express.urlencoded({ extended: true }), (req, res) => {
   const { fullName, age, dateOfJoining, userId } = req.body;
+  console.log(req.body);
   const survey = { fullName, age: +age, dateOfJoining: new Date(dateOfJoining), userId };
   axios
     .post(`https://${DB_NAME}.restdb.io/rest/survey`, survey, {

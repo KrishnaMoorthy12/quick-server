@@ -46,21 +46,15 @@ router.get('/is-survey-submitted/:userId', async (req, res) => {
   return res.json({ message: 'User has not submitted the form' });
 });
 
-router.post(
-  '/survey',
-  express.json(),
-  express.urlencoded({ extended: true }),
-  protectRoute,
-  (req, res) => {
-    const { fullName, age, dateOfJoining, userId } = req.body;
-    const survey = { fullName, age: +age, dateOfJoining: new Date(dateOfJoining), userId };
-    axios
-      .post(`https://${DB_NAME}.restdb.io/rest/survey`, survey, {
-        headers: { 'x-apikey': API_KEY },
-      })
-      .then(() => res.send(survey));
-    console.log(survey);
-  }
-);
+router.post('/survey', express.json(), express.urlencoded({ extended: true }), (req, res) => {
+  const { fullName, age, dateOfJoining, userId } = req.body;
+  const survey = { fullName, age: +age, dateOfJoining: new Date(dateOfJoining), userId };
+  axios
+    .post(`https://${DB_NAME}.restdb.io/rest/survey`, survey, {
+      headers: { 'x-apikey': API_KEY },
+    })
+    .then(() => res.send(survey));
+  console.log(survey);
+});
 
 module.exports = router;

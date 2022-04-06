@@ -30,26 +30,21 @@ router.post(
   }
 );
 
-router.get(
-  '/is-survey-submitted',
-  express.urlencoded({ extended: true }),
-  express.json(),
-  async (req, res) => {
-    const { userId: requesterId } = req.query;
-    if (!requesterId) return res.status(401).send({ message: 'Unauthorized' });
+router.get('/is-survey-submitted/:userId', async (req, res) => {
+  const requesterId = req.params.userId;
+  if (!requesterId) return res.status(401).send({ message: 'Unauthorized' });
 
-    const submittedUsers = (
-      await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
-        headers: { 'x-apikey': API_KEY },
-      })
-    ).data;
+  const submittedUsers = (
+    await axios.get(`https://${DB_NAME}.restdb.io/rest/survey`, {
+      headers: { 'x-apikey': API_KEY },
+    })
+  ).data;
 
-    if (submittedUsers.find(user => user.userId === requesterId))
-      return res.json({ message: 'User has submitted the survey', submitted: true });
+  if (submittedUsers.find(user => user.userId === requesterId))
+    return res.json({ message: 'User has submitted the survey', submitted: true });
 
-    return res.json({ message: 'User has not submitted the form' });
-  }
-);
+  return res.json({ message: 'User has not submitted the form' });
+});
 
 router.post(
   '/survey',
